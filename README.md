@@ -76,3 +76,5 @@ void httpHead() {
 I use the _**CloseableHttpClient**_ class to execute the request stored in _**headRequest**_ variable. After I use a method to print the response. 
 
 ## Screenshot
+
+![](img/Capture1.PNG)
