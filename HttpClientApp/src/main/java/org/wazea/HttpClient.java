@@ -2,9 +2,7 @@ package org.wazea;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpHead;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -12,9 +10,9 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class HttpClient {
+class HttpClient {
 
-    public static final String[] HEADERS = {
+    private static final String[] HEADERS = {
             "Access-Control-Allow-Credentials",
             "Access-Control-Allow-Origin",
             "Content-Length",
@@ -56,7 +54,7 @@ public class HttpClient {
         }
     }
 
-    public void httpGet() {
+    void httpGet() {
         try {
             CloseableHttpClient client = HttpClientBuilder.create().build();
             HttpGet getRequest = new HttpGet("http://httpbin.org/ip");
@@ -67,7 +65,7 @@ public class HttpClient {
         }
     }
 
-    public void httpHead() {
+    void httpHead() {
         try {
             CloseableHttpClient client = HttpClientBuilder.create().build();
             HttpHead headRequest = new HttpHead("http://httpbin.org/ip");
@@ -78,13 +76,51 @@ public class HttpClient {
         }
     }
 
-    public void httpPost() {
+    void httpPost() {
         try {
             CloseableHttpClient client = HttpClientBuilder.create().build();
-            HttpPost postRequest = new HttpPost("http://httpbin.org/forms/post");
+            HttpPost postRequest = new HttpPost("http://httpbin.org/post");
             postRequest.setHeader("User-Agent", "Client");
             postRequest.setEntity(new StringEntity("Test data"));
             HttpResponse response = client.execute(postRequest);
+            printResponse(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void httpPut() {
+        try {
+            CloseableHttpClient client = HttpClientBuilder.create().build();
+            HttpPut putRequest = new HttpPut("http://httpbin.org/put");
+            putRequest.setHeader("User-Agent", "Client");
+            putRequest.setEntity(new StringEntity("Test data"));
+            HttpResponse response = client.execute(putRequest);
+            printResponse(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void httpPatch() {
+        try {
+            CloseableHttpClient client = HttpClientBuilder.create().build();
+            HttpPatch patchRequest = new HttpPatch("http://httpbin.org/patch");
+            patchRequest.setHeader("User-Agent", "Client");
+            patchRequest.setEntity(new StringEntity("Test data"));
+            HttpResponse response = client.execute(patchRequest);
+            printResponse(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void httpDelete() {
+        try {
+            CloseableHttpClient client = HttpClientBuilder.create().build();
+            HttpDelete deleteRequest = new HttpDelete("http://httpbin.org/delete");
+            deleteRequest.setHeader("User-Agent", "Client");
+            HttpResponse response = client.execute(deleteRequest);
             printResponse(response);
         } catch (Exception e) {
             e.printStackTrace();
